@@ -30,6 +30,7 @@
               </mat-form-field>
                 <br>
                 <span id="reload">
+                  <a style="display: flex; justify-content: start;" (click)="showKeyboard()"><h4>Keyboard</h4></a>
                   <div class="pass-txt"><a href="#">Forgot password?</a></div>
                 </span>
 
@@ -39,9 +40,9 @@
   </mat-card>
   
 </div>
-<a style="display: flex; justify-content: end;" ><h4>Keyboard</h4></a>
 
-<div id="keyboard" style="text-align:center "  >
+
+<div id="keyboard" style="text-align:center ; display:none"  >
 	<!-- <input (input)="onInputChange($event)" class="input" value={{value}} placeholder="Tap on the virtual keyboard to start" /> -->
 	<div class="simple-keyboard"></div>
 </div>

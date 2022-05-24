@@ -11,6 +11,7 @@ import { AuthService } from './auth.service';
 export class AppComponent {
   title = 'login2'
   currentUser: any;
+  
 
   constructor(
     public router: Router,
@@ -23,7 +24,8 @@ export class AppComponent {
 
     if(localStorage.getItem('access_token') != null){
       this.autoAuth();
-      this.bnIdle.startWatching(20).subscribe((res) => {
+      
+      this.bnIdle.startWatching(200).subscribe((res) => {
         if (res) {
          this.authService.logoutUser();
         }
@@ -31,6 +33,8 @@ export class AppComponent {
     }
   
   }
+
+  
   autoAuth(){
     const now = new Date;
     this.currentUser = localStorage.getItem('session_expires');

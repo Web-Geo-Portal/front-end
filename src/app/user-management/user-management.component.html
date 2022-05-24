@@ -1,0 +1,70 @@
+<div>
+    <ul>
+        <li (click)="userForm()" >Add User </li>
+        <li (click)="userDetail()">View User </li>
+        <li>Delete </li>
+    </ul>
+</div>
+
+
+
+<div *ngIf="userFormHide" id="add_user">
+    <div fxLayoutAlign="center center" fxFlexFill class="main-div">
+        <mat-card fxFlex="25">
+            <mat-toolbar class="Heading" fxLayoutAlign="center center">Add User</mat-toolbar>
+                <form [formGroup]="adduserForm" fxLayoutAlign="stretch" fxLayout="column" (ngSubmit)="addUser()"  class="Login-form">
+                    <mat-form-field  >
+                        <input matInput placeholder="First Name" type="text" formControlName="first_name">
+                        <mat-error *ngIf="!adduserForm.controls['first_name'].valid">
+                          First name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field  >
+                        <input matInput placeholder="Last Name" type="text" formControlName="last_name">
+                        <mat-error *ngIf="!adduserForm.controls['last_name'].valid">
+                          Last name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field  >
+                        <input matInput placeholder="Email" type="email" formControlName="email" [email]="true" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                        <mat-error *ngIf="!adduserForm.controls['email'].valid">
+                          Email is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field  >
+                        <mat-label>Role</mat-label>
+                        <mat-select formControlName="user_role">
+                            <mat-option *ngFor="let role of roles" [value]="role.value">
+                                {{role.name}}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <input matInput placeholder="Role" type="text" formControlName="role"> -->
+                        <mat-error *ngIf="!adduserForm.controls['user_role'].valid">
+                          Role is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field  >
+                        <input matInput placeholder="Password" type="password" formControlName="password">
+                        <!-- <mat-error *ngIf="!adduserForm.controls['passsword'].valid">
+                          Role is required
+                        </mat-error> -->
+                    </mat-form-field>
+
+                    <br>
+                    <button mat-raised-button type="submit" [disabled]="!adduserForm.valid" class="button">Add</button>
+                </form>
+            
+        </mat-card>
+        
+      </div>
+</div>
+
+<div *ngIf="userDetailhide" id="all_user">
+    <div>
+        <ul>
+            <li *ngFor="let data of userData" >
+                {{data.first_name}} {{data.last_name}} ({{data.email}})
+            </li>
+        </ul>
+    </div>
+</div>

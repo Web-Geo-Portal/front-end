@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit {
   captchavalue = "";
   keyboard!: Keyboard;
   selectedField: any;
+  showhide:boolean = false;
+  attemptsCount :any
+  failure_time: any
+  failTime: any;
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +34,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.getCaptch();
+    this.loginAttempts();
   }
 
   loginForm: FormGroup = this.fb.group({
@@ -49,19 +54,35 @@ export class LoginComponent implements OnInit {
   loginUser(){
     // console.log(this.loginForm.value)
     let user = this.loginForm.value
+    user['attempts']= localStorage.getItem('login_attempts');
+
+   
     return this.httpClient.post<any>(`${this.API_URL}/api/auth/login`, user)
       .subscribe((res: any) => {
-        if(res.status){
-          localStorage.setItem('access_token', res.token.accessToken)
-          localStorage.setItem('email', res.users.rows[0].user_email)
+        if(res.status == 1){
+          localStorage.removeItem('login_failtime')
+          localStorage.removeItem('login_attempts')
+
           const now = new Date()
           let expdate =  new Date(now.getTime() + res.expiresIn*1000);
+
+          localStorage.setItem('access_token', res.token.accessToken)
+          localStorage.setItem('email', res.users.rows[0].user_email)
           localStorage.setItem('session_expires', expdate.toISOString())
           this.router.navigate(['/base-map']);
-        }else{
-          console.log(res.error)
         }
-
+        else if(res.status == 2){
+          if(localStorage.getItem('login_attempts') == null ){
+            this.attemptsCount = 1
+            const start = new Date()
+            this.failure_time =  new Date(start.getTime());
+          }else{
+            this.attemptsCount = Number(localStorage.getItem('login_attempts')) + 1;
+            this.failure_time = localStorage.getItem('login_failtime')
+          }
+          localStorage.setItem('login_attempts', this.attemptsCount);
+          localStorage.setItem('login_failtime', String(this.failure_time));
+        } 
       })
   }
 
@@ -90,7 +111,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
+  showKeyboard(){
+    this.showhide = !this.showhide;
+    if(this.showhide){
+      document.getElementById("keyboard").style.display = "block";
+    }else{
+      document.getElementById("keyboard").style.display = "none";
+    }
+    
+  }
 
   onChange(input: string ) {
     if(this.selectedField == 'email'){
@@ -128,10 +157,26 @@ export class LoginComponent implements OnInit {
     console.log(e)
     this.selectedField = e
   }
+
+  
   ngAfterViewInit() {
     this.keyboard = new Keyboard({
       onChange: input  => this.onChange(input),
       onKeyPress: button => this.onKeyPress(button)
     });
+  }
+
+
+  //login attempts and time check
+  loginAttempts(){
+    
+    const now = new Date;
+    this.failTime = localStorage.getItem('login_failtime');
+    let timeDiff = new Date(this.failTime).getTime() + 300*1000 - new Date(now).getTime()
+
+    if (timeDiff < 0){
+      localStorage.removeItem('login_failtime')
+      localStorage.removeItem('login_attempts')
+    }
   }
 }

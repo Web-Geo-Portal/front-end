@@ -23,6 +23,7 @@
     "@angular/router": "~13.3.0",
     "bn-ng-idle": "^2.0.1",
     "moment": "^2.29.3",
+    "ngx-toastr": "^14.3.0",
     "rxjs": "~7.5.0",
     "simple-keyboard": "^3.4.101",
     "tslib": "^2.3.0",

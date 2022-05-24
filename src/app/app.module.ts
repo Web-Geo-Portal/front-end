@@ -18,6 +18,10 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BasemapComponent } from './basemap/basemap.component';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -27,7 +31,8 @@ import { BnNgIdleService } from 'bn-ng-idle';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    BasemapComponent
+    BasemapComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +43,12 @@ import { BnNgIdleService } from 'bn-ng-idle';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
+    MatOptionModule,
     MatCardModule,
     MatToolbarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot(), 
   ],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
