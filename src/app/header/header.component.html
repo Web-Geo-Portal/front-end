@@ -1,0 +1,15 @@
+<header *ngIf="router.url === '/'">
+    <div class="header">
+        <img class="logo" src="../../assets/Images/logo.png" alt="logo">
+        <h2 *ngIf="router.url === '/'"> Web Geo Portal</h2>
+    </div>
+</header>
+
+
+<header *ngIf="router.url === '/base-map'">
+<div class="header">
+    <img class="logo" src="../../assets/Images/logo.png" alt="logo">
+    <h2 *ngIf="router.url === '/base-map'" >Base Map</h2>
+    <button *ngIf="router.url === '/base-map'" id="logout_btn" type="button" (click)="logoutUser()" >Logout</button>
+</div>
+</header>

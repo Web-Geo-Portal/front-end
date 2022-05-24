@@ -1,0 +1,72 @@
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+  <mat-card fxFlex="25">
+      <mat-toolbar class="Heading" fxLayoutAlign="center center">Login Page</mat-toolbar>
+      <form [formGroup]="loginForm" fxLayoutAlign="stretch" fxLayout="column"  (ngSubmit)="loginUser()" class="Login-form">
+              <mat-form-field  >
+                <input matInput (focus)="getInputType('email')" (input)="onInputChange($event)" value={{value}} placeholder="Username/Email" type="email" formControlName="email"  ngModel [email]="true" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                >
+              
+                <mat-error *ngIf="!loginForm.controls['email'].valid">
+                  Email is required
+                </mat-error>
+              </mat-form-field>
+              
+              <mat-form-field>
+                  <input matInput (focus)="getInputType('password')" (input)="onInputChange($event)" value={{passwordvalue}} type="password" placeholder="Password" formControlName="password" >
+                  <mat-error>
+                    Enter passsword
+                  </mat-error>
+                </mat-form-field>
+                
+                <div class="captcha-area">
+                  <div class="captcha-img">
+                    <img src="../../assets/Images/cap.jpeg" alt="Captch Background">
+                    <span class="captcha">{{captchaString}}</span>
+                  </div>
+                  <span id="reload" (click)="getCaptch()"><img src="../../assets/Images/arrow.png" id="reload-img" alt=""></span>
+                </div>
+                <mat-form-field>
+                <input matInput (focus)="getInputType('captcha')" (input)="onInputChange($event)"  value={{captchavalue}} (keyup)="checkCaptcha()" type="text"  placeholder="Captcha" formControlName="captcha"  >
+              </mat-form-field>
+                <br>
+                <span id="reload">
+                  <div class="pass-txt"><a href="#">Forgot password?</a></div>
+                </span>
+
+            <button mat-raised-button type="submit" [disabled]="!loginForm.valid || !captchaTrue" class="button">Login</button>
+      </form>
+      
+  </mat-card>
+  
+</div>
+<a style="display: flex; justify-content: end;" ><h4>Keyboard</h4></a>
+
+<div id="keyboard" style="text-align:center "  >
+	<!-- <input (input)="onInputChange($event)" class="input" value={{value}} placeholder="Tap on the virtual keyboard to start" /> -->
+	<div class="simple-keyboard"></div>
+</div>
+
+<!-- <div class="wrapper">
+  <header>Login Form</header>
+  <form action="#">
+    <div class="field email">
+      <div class="input-area">
+        <input type="text" placeholder="Email Address">
+        <i class="icon fas fa-envelope"></i>
+        <i class="error error-icon fas fa-exclamation-circle"></i>
+      </div>
+      <div class="error error-txt">Email can't be blank</div>
+    </div>
+    <div class="field password">
+      <div class="input-area">
+        <input type="password" placeholder="Password">
+        <i class="icon fas fa-lock"></i>
+        <i class="error error-icon fas fa-exclamation-circle"></i>
+      </div>
+      <div class="error error-txt">Password can't be blank</div>
+    </div>
+    <div class="pass-txt"><a href="#">Forgot password?</a></div>
+    <input type="submit" value="Login">
+  </form>
+  <div class="sign-txt">Not yet member? <a href="#">Signup now</a></div>
+</div> -->
