@@ -66,8 +66,9 @@ export class LoginComponent implements OnInit {
           const now = new Date()
           let expdate =  new Date(now.getTime() + res.expiresIn*1000);
 
-          localStorage.setItem('access_token', res.token.accessToken)
-          localStorage.setItem('email', res.users.rows[0].user_email)
+          localStorage.setItem('access_token', res.token.accessToken);
+          localStorage.setItem('email', res.users.rows[0].user_email);
+          localStorage.setItem('user_role', res.users.rows[0].user_role);
           localStorage.setItem('session_expires', expdate.toISOString())
           this.router.navigate(['/base-map']);
         }

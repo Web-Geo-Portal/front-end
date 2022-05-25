@@ -44,14 +44,29 @@
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field  >
-                        <input matInput placeholder="Password" type="password" formControlName="password">
-                        <!-- <mat-error *ngIf="!adduserForm.controls['passsword'].valid">
+                        <mat-label>Area Of Intrest</mat-label>
+                        <mat-select >
+                            <mat-option *ngFor="let role of aoiData" [value]="role.value">
+                                {{role.name}}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="!adduserForm.controls['user_role'].valid">
                           Role is required
                         </mat-error> -->
                     </mat-form-field>
+                    <mat-form-field  >
+                        <input matInput (keyup)="validatePassword()" placeholder="Password" type="password" formControlName="password">
+                        <mat-error *ngIf="!adduserForm.controls['password'].valid">
+                          Password is required
+                        </mat-error>
+                        
+                    </mat-form-field>
+                    <mat-error *ngIf="!passwordValidate && adduserForm.controls['password'].valid">
+                        Password should contain atleast one number and one special character
+                    </mat-error>
 
                     <br>
-                    <button mat-raised-button type="submit" [disabled]="!adduserForm.valid" class="button">Add</button>
+                    <button mat-raised-button type="submit" [disabled]="!adduserForm.valid || !passwordValidate" class="button">Add</button>
                 </form>
             
         </mat-card>

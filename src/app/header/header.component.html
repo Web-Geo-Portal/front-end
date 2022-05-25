@@ -12,7 +12,7 @@
     <h2 *ngIf="router.url === '/base-map'" >Base Map</h2>
     <button *ngIf="router.url === '/base-map'" id="logout_btn" type="button" (click)="logoutUser()" >Logout</button>
     <br>
-    <a  [routerLink]="['/user-management']"><p>User Management</p></a>
+    <a  [routerLink]="['/user-management']"><p>Admin Panel</p></a>
 </div>
 </header>
 
@@ -22,6 +22,6 @@
         <h2 *ngIf="router.url === '/user-management'" >User Management</h2>
         <!-- <button *ngIf="router.url === '/base-map'" id="logout_btn" type="button" (click)="logoutUser()" >Logout</button> -->
         <br>
-        <a  [routerLink]="['/base-map']"><p>Base Map</p></a>
+        <a  [routerLink]="['/base-map']"><p>Home</p></a>
     </div>
     </header>

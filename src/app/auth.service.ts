@@ -24,7 +24,7 @@ export class AuthService {
     return this.httpClient.post<any>(`${this.API_URL}/api/auth/refresh_token`,{'email':email})
       .subscribe((res: any) => {
         if(res.status){
-          if (localStorage.removeItem('access_token') == null && localStorage.removeItem('session_expires') == null && localStorage.removeItem('email') == null) {
+          if (localStorage.removeItem('access_token') == null && localStorage.removeItem('session_expires') == null && localStorage.removeItem('email') == null && localStorage.removeItem('user_role') == null) {
             this.router.navigate(['']);
           }
         }
