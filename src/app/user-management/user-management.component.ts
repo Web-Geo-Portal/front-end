@@ -23,7 +23,15 @@ export class UserManagementComponent implements OnInit {
   userFormHide: boolean = false;
   userDetailhide: boolean = false;
   passwordValidate: boolean = false;
+  userCreated: boolean = false;
   aoiData = [];
+  selectedAreaofintrest :string;
+  userEmail: any;
+  userPassword: any;
+  srcResult: any;
+  backgroundImage: string = '';
+  logoImage: string = '';
+  image: any;
 
   constructor(
     private fb: FormBuilder,
@@ -41,21 +49,30 @@ export class UserManagementComponent implements OnInit {
     last_name: ['', [Validators.required]],
     email : ['', [Validators.required, Validators.email]],
     user_role:['',[Validators.required]],
-    aoi:[''],
+    geom:['',[Validators.required]],
     password:['',Validators.required]
   })
 
+  slectedAoi(e){
+    this.selectedAreaofintrest = e
+  }
   addUser() {
-    console.log(this.adduserForm.value)
+    // console.log(this.adduserForm.value)
     let user = this.adduserForm.value
+    user['aoi'] = this.selectedAreaofintrest
 
     return this.httpClient.post<any>(`${this.API_URL}/api/users/add`, user)
     .subscribe((res: any) => {
       console.log(res)
       if(res.status){
-        this.toastr.success('Hello world!', 'Toastr fun!');
+        this.toastr.success('User Created Successfully!');
         this.adduserForm.reset();
-        window.location.reload();
+        this.userCreated = true;
+        this.userFormHide = false;
+        this.userDetailhide = false;
+        this.userEmail = res.newUser.rows[0].user_email;
+        this.userPassword = res.temp_password;
+        // window.location.reload();
       }else{
         this.toastr.error('Error!', 'Toastr fun!');
       }
@@ -65,7 +82,6 @@ export class UserManagementComponent implements OnInit {
   getAllUser(){
     return this.httpClient.get<any>(`${this.API_URL}/api/users/get-alluser`)
     .subscribe((res: any) => {
-      // console.log(res.data)
         this.userData = res.data
     })
   }
@@ -85,14 +101,16 @@ export class UserManagementComponent implements OnInit {
 
   userForm(){
     this.userFormHide = !this.userFormHide
+    this.userCreated = false;
   }
 
   userDetail(){
     this.userDetailhide = !this.userDetailhide
+    this.userCreated = false;
   }
 
   validatePassword(){
-    console.log(this.passwordValidate)
+    // console.log(this.passwordValidate)
     let password = this.adduserForm.value.password;
     var regularExpression = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
     if(!regularExpression.test(password)) {
@@ -101,4 +119,46 @@ export class UserManagementComponent implements OnInit {
       this.passwordValidate = true;
     }
   }
+
+  onFileSelected() {
+    const inputNode: any = document.querySelector('#file');
+    // console.log("sadasda",inputNode)
+    if (typeof (FileReader) !== 'undefined') {
+      const reader = new FileReader();
+  
+      reader.onload = (e: any) => {
+        this.srcResult = e.target.result;
+      };
+  
+      reader.readAsArrayBuffer(inputNode.files[0]);
+      this.image = inputNode.files[0]
+      this.backgroundImage = inputNode.files[0].name
+    }
+  }
+
+  onLogoSelected() {
+    const inputNode: any = document.querySelector('#logo');
+    console.log("sadasda",inputNode)
+    if (typeof (FileReader) !== 'undefined') {
+      const reader = new FileReader();
+  
+      reader.onload = (e: any) => {
+        this.srcResult = e.target.result;
+      };
+  
+      reader.readAsArrayBuffer(inputNode.files[0]);
+      this.logoImage = inputNode.files[0].name
+    }
+  }
+
+  // saveLogo(){
+  //   // console.log(this.image)
+  //   let formData = new FormData();
+  //     formData.append('file', this.image);
+  //     console.log(formData)
+  //   return this.httpClient.post<any>(`${this.API_URL}/api/data/upload`, formData)
+  //   .subscribe((res: any) => {
+      
+  //   })
+  // }
 }

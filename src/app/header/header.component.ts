@@ -10,12 +10,15 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   API_URL: string = 'http://localhost:5000';
+  userRole: any;
+
   constructor(
     public router: Router,
     private httpClient: HttpClient,
   ) { }
 
   ngOnInit(): void {
+    this.userRole = localStorage.getItem('user_role')
   }
 
   logoutUser(){

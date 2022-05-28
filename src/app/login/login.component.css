@@ -18,6 +18,15 @@ ul {
   text-align: center;
 }
 
+#main{
+  /* background-image: "../../assets/Images/logo.png"; */
+  background-image: url("../../../../uploads/Earth-daily.jpg");
+  height: 100%;
+  width: 100%;
+  background-size: 100% ;  
+  background-size: cover; 
+}
+
 /* input {
   width: 100%;
   height: 100px;
@@ -25,7 +34,7 @@ ul {
   font-size: 20px;
   border: none;
   box-sizing: border-box;
-} */
+} */  
 
 .simple-keyboard {
   max-width: 850px;

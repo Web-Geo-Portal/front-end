@@ -22,6 +22,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
+import { RegisterUserComponent } from './register-user/register-user.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ToastrModule } from 'ngx-toastr';
     FooterComponent,
     HomeComponent,
     BasemapComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    RegisterUserComponent
   ],
   imports: [
     BrowserModule,

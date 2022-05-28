@@ -60,17 +60,20 @@ export class LoginComponent implements OnInit {
     return this.httpClient.post<any>(`${this.API_URL}/api/auth/login`, user)
       .subscribe((res: any) => {
         if(res.status == 1){
-          localStorage.removeItem('login_failtime')
-          localStorage.removeItem('login_attempts')
-
-          const now = new Date()
-          let expdate =  new Date(now.getTime() + res.expiresIn*1000);
-
-          localStorage.setItem('access_token', res.token.accessToken);
-          localStorage.setItem('email', res.users.rows[0].user_email);
-          localStorage.setItem('user_role', res.users.rows[0].user_role);
-          localStorage.setItem('session_expires', expdate.toISOString())
-          this.router.navigate(['/base-map']);
+            localStorage.removeItem('login_failtime')
+            localStorage.removeItem('login_attempts')
+            const now = new Date()
+            let expdate =  new Date(now.getTime() + res.expiresIn*1000);
+            localStorage.setItem('access_token', res.token.accessToken);
+            localStorage.setItem('email', res.users.rows[0].user_email);
+            localStorage.setItem('user_role', res.users.rows[0].user_role);
+            localStorage.setItem('session_expires', expdate.toISOString())
+          if(!res.users.rows[0].user_registered){
+            this.router.navigate(['/register']);
+          }else{
+            this.router.navigate(['/base-map']);
+          }
+       
         }
         else if(res.status == 2){
           if(localStorage.getItem('login_attempts') == null ){
@@ -156,6 +159,7 @@ export class LoginComponent implements OnInit {
 
   getInputType(e){
     console.log(e)
+    this.keyboard.setInput('');
     this.selectedField = e
   }
 

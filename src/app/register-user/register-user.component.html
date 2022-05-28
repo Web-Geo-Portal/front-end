@@ -1,0 +1,51 @@
+<p (click)="tets()">logout</p>
+
+
+<div id="register_user">
+    <div fxLayoutAlign="center center" fxFlexFill class="main-div">
+        <mat-card fxFlex="25">
+            <mat-toolbar class="Heading" fxLayoutAlign="center center">Change Password</mat-toolbar>
+                <form [formGroup]="userRegisterForm" fxLayoutAlign="stretch" fxLayout="column" (ngSubmit)="registerUser()"  class="Login-form">
+                    <mat-form-field  >
+                        <input matInput [disabled]="true" placeholder="Email" value={{userEmail}} >
+                    </mat-form-field>
+
+                    <mat-form-field  >
+                        <input matInput  placeholder="Old Password" type="password" formControlName="oldpassword">
+                        <mat-error *ngIf="!userRegisterForm.controls['password'].valid">
+                          Old Password is required
+                        </mat-error>
+                        
+                    </mat-form-field>
+                   
+                    <mat-form-field  >
+                        <input matInput  (keyup)="validatePassword()" placeholder="New Password" type="password" formControlName="password">
+                        <mat-error *ngIf="!userRegisterForm.controls['password'].valid">
+                          Password is required
+                        </mat-error>
+                        
+                    </mat-form-field>
+                    <mat-error *ngIf="!passwordValidate && userRegisterForm.controls['password'].valid">
+                        Password should contain atleast one number and one special character
+                    </mat-error>
+
+                    <mat-form-field >
+                        <input matInput (keyup)="confirmPassword()" placeholder="Confirm New Password" type="password" formControlName="confirmpassword">
+                        <mat-error *ngIf="!userRegisterForm.controls['password'].valid">
+                        Confirm Password is required
+                        </mat-error>
+                        
+                    </mat-form-field>
+                    <mat-error *ngIf="!passwordMatch && userRegisterForm.controls['confirmpassword'].valid">
+                        Password not matched
+                    </mat-error>
+
+                    <br>
+                    <button mat-raised-button type="submit" [disabled]="!userRegisterForm.valid || !passwordMatch" class="button">Update</button>
+                </form>
+            
+        </mat-card>
+        
+      </div>
+</div>
+
