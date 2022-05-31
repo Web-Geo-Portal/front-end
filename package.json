@@ -25,6 +25,7 @@
     "fa-icons": "^0.2.0",
     "moment": "^2.29.3",
     "ngx-toastr": "^14.3.0",
+    "ol": "^6.14.1",
     "rxjs": "~7.5.0",
     "simple-keyboard": "^3.4.101",
     "tslib": "^2.3.0",

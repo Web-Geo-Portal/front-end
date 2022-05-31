@@ -2,7 +2,6 @@
     <ul>
         <li (click)="userForm()" >Add User </li>
         <li (click)="userDetail()">View User </li>
-        <li>Delete </li>
         <li (click)="homesSetting()">Home Settings</li>
     </ul>
 </div>
@@ -74,12 +73,22 @@
 </div>
 
 <div *ngIf="userDetailhide" id="all_user">
+    <div fxLayoutAlign="center center" fxFlexFill class="main-div">
     <div>
+        <mat-card fxFlex="100" style="overflow: scroll;">
         <ul>
             <li *ngFor="let data of userData" >
-                {{data.first_name}} {{data.last_name}} ({{data.user_email}})
+                User Name :{{data.first_name}} {{data.last_name}}
+                <span>Email: {{data.user_email}}</span>
+                <span class="delete-btn">
+                    <button mat-icon-button (click)="deleteUser(data.user_id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </span>
             </li>
         </ul>
+    </mat-card>
+    </div>
     </div>
 </div>
 

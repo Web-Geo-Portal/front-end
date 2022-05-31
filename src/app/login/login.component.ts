@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Keyboard from "simple-keyboard";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private httpClient: HttpClient,
-    public router: Router
+    public router: Router,
+    private toastr: ToastrService
     ) {
   }
 
@@ -82,6 +84,7 @@ export class LoginComponent implements OnInit {
        
         }
         else if(res.status == 2){
+          this.toastr.error(res.error);
           if(localStorage.getItem('login_attempts') == null ){
             this.attemptsCount = 1
             const start = new Date()
@@ -92,6 +95,8 @@ export class LoginComponent implements OnInit {
           }
           localStorage.setItem('login_attempts', this.attemptsCount);
           localStorage.setItem('login_failtime', String(this.failure_time));
+        }else if(res.status == 0){
+          this.toastr.error(res.error);
         } 
       })
   }

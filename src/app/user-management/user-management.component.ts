@@ -108,17 +108,36 @@ export class UserManagementComponent implements OnInit {
   userForm(){
     this.userFormHide = !this.userFormHide
     this.userCreated = false;
+    this.userDetailhide = false;
+    this.home_settings = false;
   }
 
   userDetail(){
     this.userDetailhide = !this.userDetailhide
     this.userCreated = false;
+    this.home_settings = false;
+    this.userFormHide = false;
   }
 
   homesSetting(){
     this.home_settings = !this.home_settings;
     this.userCreated = false;
+    this.userFormHide = false;
     this.userDetailhide = false;
+  }
+
+  deleteUser(id){
+    this.httpClient.post<any>(`${this.API_URL}/api/users/delete-user`, {user_id:id})
+    .subscribe((res: any) => {
+      
+      if(res.status == 1){
+        this.toastr.success(res.message);
+        this.getAllUser();
+      }else{
+        this.toastr.error("Something went wrong");
+      }
+      
+    })
   }
 
   validatePassword(){
@@ -177,6 +196,7 @@ export class UserManagementComponent implements OnInit {
     .subscribe((res: any) => {
       console.log(res)
       if(res.status == 1){
+        this.toastr.success("Image uploded successfully")
         this.home_settings = false
       }
     })

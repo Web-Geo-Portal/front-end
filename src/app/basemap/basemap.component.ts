@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
+// import Map from 'ol/Map.js';
+// import View from 'ol/View.js';
+// import TileLayer from 'ol/layer/Tile.js';
+// import OSM from 'ol/source/OSM.js';
+// import TileWMS from 'ol/source/TileWMS.js';
+// import ol from 'ol/Overlay';
+
 @Component({
   selector: 'app-basemap',
   templateUrl: './basemap.component.html',
@@ -18,6 +25,7 @@ export class BasemapComponent implements OnInit {
 
   ngOnInit(): void {
     this.userRole = localStorage.getItem('user_role')
+
   }
 
   onToggleSideNav(data){
