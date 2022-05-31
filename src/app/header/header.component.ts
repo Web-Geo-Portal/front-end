@@ -11,14 +11,25 @@ export class HeaderComponent implements OnInit {
 
   API_URL: string = 'http://localhost:5000';
   userRole: any;
+  logo: string;
 
   constructor(
     public router: Router,
     private httpClient: HttpClient,
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit(): void {
+    this.getHomePage();
     this.userRole = localStorage.getItem('user_role')
+  }
+
+  getHomePage(){
+    return this.httpClient.get<any>(`${this.API_URL}/api/data/get-images`)
+    .subscribe((res: any) => {
+      this.logo = res.data.logo.rows[0].background_image;
+    })
   }
 
   logoutUser(){

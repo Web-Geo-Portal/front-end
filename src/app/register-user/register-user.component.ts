@@ -29,9 +29,6 @@ export class RegisterUserComponent implements OnInit {
     password:['',Validators.required],
     confirmpassword:['',Validators.required],
   })
-  tets(){
-    this.authService.logoutUser();
-  }
 
   validatePassword(){
     // console.log(this.passwordValidate)

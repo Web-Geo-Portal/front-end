@@ -3,7 +3,7 @@
         <li (click)="userForm()" >Add User </li>
         <li (click)="userDetail()">View User </li>
         <li>Delete </li>
-        <li>Home Settings</li>
+        <li (click)="homesSetting()">Home Settings</li>
     </ul>
 </div>
 
@@ -94,28 +94,23 @@
         </mat-card>
     </div>
 </div>
-<!-- 
-<div id="home_settings" >
+
+
+<div *ngIf="home_settings" id="home_settings" >
     <div fxLayoutAlign="center center" fxFlexFill class="main-div">
         <mat-card fxFlex="25">
             <mat-toolbar class="Heading" fxLayoutAlign="center center">Home Settings</mat-toolbar>
-            <form  fxLayoutAlign="stretch" fxLayout="column"   class="Login-form">
+            <form [formGroup]="imageForm"  fxLayoutAlign="stretch" fxLayout="column"   class="Login-form">
                 
-                <mat-form-field>
-                    <input matInput placeholder="Backgroud Image" type="text" [disabled]="true" value={{backgroundImage}}  >
-                </mat-form-field>
-                <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-                <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
-                
-
-                <mat-form-field>
-                    <input matInput placeholder="Logo" type="text" [disabled]="true" value={{logoImage}}  >
-                </mat-form-field>
-                <button type="button" mat-raised-button (click)="logoInput.click()">Choose File</button>
-                <input hidden (change)="onLogoSelected()" #logoInput type="file" id="logo">
+                <label for="">Background Image </label>
+                <input (change)="onFileSelected($event)" #fileInput type="file" id="file">
+            
+                <label for="">Logo</label>
+                <input (change)="onLogoSelected($event)" #logoInput type="file" id="logo">
                 <br>
                 <button mat-raised-button type="button" (click)="saveLogo()" style="background-color: #7ab8ee;" class="button">Save</button>
             </form>
         </mat-card>
     </div>
-</div> -->
+</div>
+

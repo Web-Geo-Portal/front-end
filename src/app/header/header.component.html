@@ -1,6 +1,6 @@
 <header *ngIf="router.url === '/'">
     <div class="header">
-        <img class="logo" src="../../assets/Images/logo.png" alt="logo">
+        <img class="logo" src="../../assets/logo/{{this.logo}}" alt="logo">
         <h2 > Web Geo Portal</h2>
     </div>
 </header>
@@ -8,18 +8,7 @@
 <header *ngIf="router.url === '/register'">
     <div class="header">
         <img class="logo" src="../../assets/Images/logo.png" alt="logo">
-        <!-- <h2 > Register </h2> -->
     </div>
-</header>
-
-<header *ngIf="router.url === '/base-map'">
-<div class="header">
-    <img class="logo" src="../../assets/Images/logo.png" alt="logo">
-    <h2>Base Map</h2>
-    <button  id="logout_btn" type="button" (click)="logoutUser()" >Logout</button>
-    <br>
-    <a *ngIf="userRole === '1'"  [routerLink]="['/user-management']"><p>Admin Panel</p></a>
-</div>
 </header>
 
 
@@ -27,8 +16,8 @@
     <div class="header">
         <img class="logo" src="../../assets/Images/logo.png" alt="logo">
         <h2>Admin Panel</h2>
-        <!-- <button *ngIf="router.url === '/base-map'" id="logout_btn" type="button" (click)="logoutUser()" >Logout</button> -->
+        <button  id="logout_btn" type="button" (click)="logoutUser()" >Logout</button>
         <br>
-        <a  [routerLink]="['/base-map']"><p>Home</p></a>
+        <a style="margin-left:20px; margin-top: 20px;" [routerLink]="['/base-map']"><p>Home</p></a>
     </div>
 </header>

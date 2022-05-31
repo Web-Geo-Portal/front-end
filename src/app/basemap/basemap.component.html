@@ -1,1 +1,18 @@
-<p>Base Map</p>
+
+<header *ngIf="router.url === '/base-map'">
+    <div class="header">
+        <img class="logo" src="../../assets/Images/logo.png" alt="logo">
+        <h2>Base Map</h2>
+        <button  id="logout_btn" type="button" (click)="logoutUser()" >Logout</button>
+        <br>
+        <a *ngIf="userRole === '1'" style="margin-left:20px; margin-top: 20px;" [routerLink]="['/user-management']"><p>Admin Panel</p></a>
+    </div>
+</header>
+<!-- <div>
+    <button mat-icon-button >
+      <mat-icon>menu</mat-icon>
+    </button>
+</div> -->
+
+<app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+<p style="display: flex; justify-content: center;">MAP HERE</p>

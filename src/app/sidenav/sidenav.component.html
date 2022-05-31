@@ -1,0 +1,89 @@
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
+    <div class="logo-container">
+        <button  (click)="toggleCollapsed()">
+            <img class="logo" src="../../assets/Images/logo.png" alt="logo">
+        </button>
+        <div class="long-text" *ngIf="collapsed" >DRDO</div>
+        <button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
+            <i class="fa fa-times close-icon" style="margin-left: -75px;">X</i>
+        </button>
+    </div>
+    <ul class="sidenav-nav">
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link">
+                <img src="" alt="">***img
+                <span class="sidenav-link-test" *ngIf="collapsed">Context</span>
+            </a>
+        </li>
+
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link">
+                <img src="" alt="">***img
+                <span class="sidenav-link-test" *ngIf="collapsed">Map</span>
+            </a>
+        </li>
+
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link">
+                <img src="" alt="">***img
+                <span class="sidenav-link-test" *ngIf="collapsed">Spatial Filter </span>
+            </a>
+        </li>
+
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link">
+                <img src="" alt="">***img
+                <span class="sidenav-link-test" *ngIf="collapsed">Measure</span>
+            </a>
+        </li>
+
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link">
+                <img src="" alt="">***img
+                <span class="sidenav-link-test" *ngIf="collapsed">Draw</span>
+            </a>
+        </li>
+
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link">
+                <img src="" alt="">***img
+                <span class="sidenav-link-test" *ngIf="collapsed">Direction</span>
+            </a>
+        </li>
+
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link">
+                <img src="" alt="">***img
+                <span class="sidenav-link-test" *ngIf="collapsed">Catalog</span>
+            </a>
+        </li>
+
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link">
+                <img src="" alt="">***img
+                <span class="sidenav-link-test" *ngIf="collapsed">Import & Export</span>
+            </a>
+        </li>
+
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link">
+                <img src="" alt="">***img
+                <span class="sidenav-link-test" *ngIf="collapsed">Advanced map tools</span>
+            </a>
+        </li>
+
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link">
+                <img src="" alt="">***img
+                <span class="sidenav-link-test" *ngIf="collapsed">Print</span>
+            </a>
+        </li>
+
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link">
+                <img src="" alt="">***img
+                <span class="sidenav-link-test" *ngIf="collapsed">Share</span>
+            </a>
+        </li>
+    </ul>
+</div>

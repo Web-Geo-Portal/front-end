@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   attemptsCount :any
   failure_time: any
   failTime: any;
+  bg: string;
 
   constructor(
     private fb: FormBuilder,
@@ -33,8 +34,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getHomePage();
     this.getCaptch();
     this.loginAttempts();
+    if(localStorage.getItem('access_token')){
+      this.router.navigate(['/base-map']);
+    }
   }
 
   loginForm: FormGroup = this.fb.group({
@@ -43,12 +48,13 @@ export class LoginComponent implements OnInit {
     captcha : ['', [Validators.required]]
   })
 
-
-  onLogin() {
-    if (!this.loginForm.valid) {
-      return;
-    }
-    console.log(this.loginForm.value);
+  getHomePage(){
+    return this.httpClient.get<any>(`${this.API_URL}/api/data/get-images`)
+    .subscribe((res: any) => {
+      let BackgroundContainer = document.getElementById('main');
+      this.bg = res.data.background.rows[0].background_image;
+      BackgroundContainer.style.backgroundImage = `url('../../assets/background/${this.bg}')`
+    })
   }
 
   loginUser(){
@@ -133,12 +139,9 @@ export class LoginComponent implements OnInit {
     }else if(this.selectedField == 'captcha'){
       this.captchavalue = input;
     }
-    
-    console.log("Input changed", input);
   };
 
   onKeyPress(button: string) {
-    // console.log("Button pressed", button);
     if (button === "{shift}" || button === "{lock}") this.handleShift();
   };
 

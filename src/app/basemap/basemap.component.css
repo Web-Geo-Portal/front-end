@@ -1,0 +1,26 @@
+.header{
+    display: flex;
+    background-color: skyblue;
+    height:70px;
+    margin: 0;
+}
+
+.logo{
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-left: 6px;
+    align-items: center;
+    height: 60px;
+}
+h2{
+    /* text-align: center; */
+    margin-left: 654px;
+    margin-top: 16px;
+}
+#logout_btn{
+    height: 27px;
+    width: 59px;
+    margin-top: 20px;
+    margin-left: 514px;
+    margin-top: 16px;
+}

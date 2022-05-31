@@ -15,7 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BasemapComponent } from './basemap/basemap.component';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { UserManagementComponent } from './user-management/user-management.component';
@@ -23,8 +23,13 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterUserComponent } from './register-user/register-user.component';
-
-
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatIconModule } from '@angular/material/icon';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { AuthInterceptor } from './auth.interceptor';
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +39,8 @@ import { RegisterUserComponent } from './register-user/register-user.component';
     HomeComponent,
     BasemapComponent,
     UserManagementComponent,
-    RegisterUserComponent
+    RegisterUserComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
@@ -50,9 +56,20 @@ import { RegisterUserComponent } from './register-user/register-user.component';
     MatCardModule,
     MatToolbarModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(), 
+    MatIconModule,
+    ToastrModule.forRoot(),
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule, 
   ],
-  providers: [BnNgIdleService],
+  providers: [
+    BnNgIdleService,
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

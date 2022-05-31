@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./user-management.component.css']
 })
 export class UserManagementComponent implements OnInit {
-
+  
   roles = [
     {name:'Administrator',value:1},
     {name:'Sub Administrator',value:2},
@@ -24,6 +24,7 @@ export class UserManagementComponent implements OnInit {
   userDetailhide: boolean = false;
   passwordValidate: boolean = false;
   userCreated: boolean = false;
+  home_settings:boolean = false;
   aoiData = [];
   selectedAreaofintrest :string;
   userEmail: any;
@@ -51,6 +52,11 @@ export class UserManagementComponent implements OnInit {
     user_role:['',[Validators.required]],
     geom:['',[Validators.required]],
     password:['',Validators.required]
+  })
+
+  imageForm: FormGroup = this.fb.group({
+    bgImage: [''],
+    logoImage:['']
   })
 
   slectedAoi(e){
@@ -109,6 +115,12 @@ export class UserManagementComponent implements OnInit {
     this.userCreated = false;
   }
 
+  homesSetting(){
+    this.home_settings = !this.home_settings;
+    this.userCreated = false;
+    this.userDetailhide = false;
+  }
+
   validatePassword(){
     // console.log(this.passwordValidate)
     let password = this.adduserForm.value.password;
@@ -120,45 +132,53 @@ export class UserManagementComponent implements OnInit {
     }
   }
 
-  onFileSelected() {
-    const inputNode: any = document.querySelector('#file');
-    // console.log("sadasda",inputNode)
-    if (typeof (FileReader) !== 'undefined') {
-      const reader = new FileReader();
-  
-      reader.onload = (e: any) => {
-        this.srcResult = e.target.result;
-      };
-  
-      reader.readAsArrayBuffer(inputNode.files[0]);
-      this.image = inputNode.files[0]
-      this.backgroundImage = inputNode.files[0].name
+  onFileSelected(event) {
+
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      console.log("file",file);
+      // this.fileName = file.name;
+      // this.fileSize = Math.ceil(file.size/1024);
+      this.imageForm.patchValue({
+        bgImage: file
+      });
+    }
+
+  }
+
+  onLogoSelected(event) {
+
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      console.log("file",file);
+      // this.fileName = file.name;
+      // this.fileSize = Math.ceil(file.size/1024);
+      this.imageForm.patchValue({
+        logoImage: file
+      });
     }
   }
 
-  onLogoSelected() {
-    const inputNode: any = document.querySelector('#logo');
-    console.log("sadasda",inputNode)
-    if (typeof (FileReader) !== 'undefined') {
-      const reader = new FileReader();
-  
-      reader.onload = (e: any) => {
-        this.srcResult = e.target.result;
-      };
-  
-      reader.readAsArrayBuffer(inputNode.files[0]);
-      this.logoImage = inputNode.files[0].name
+  saveLogo(){
+    const formData = new FormData();
+    if(this.imageForm.get('bgImage')!.value){
+      formData.append('file', this.imageForm.get('bgImage')!.value);
     }
+    const formDataLogo = new FormData();
+    if(this.imageForm.get('logoImage')!.value){
+      formDataLogo.append('logo', this.imageForm.get('logoImage')!.value);
+    }
+    // console.log(formData)
+    this.httpClient.post<any>(`${this.API_URL}/api/data/upload`, formData)
+    .subscribe((res: any) => {
+      console.log(res)
+    })
+    return this.httpClient.post<any>(`${this.API_URL}/api/data/logo`, formDataLogo)
+    .subscribe((res: any) => {
+      console.log(res)
+      if(res.status == 1){
+        this.home_settings = false
+      }
+    })
   }
-
-  // saveLogo(){
-  //   // console.log(this.image)
-  //   let formData = new FormData();
-  //     formData.append('file', this.image);
-  //     console.log(formData)
-  //   return this.httpClient.post<any>(`${this.API_URL}/api/data/upload`, formData)
-  //   .subscribe((res: any) => {
-      
-  //   })
-  // }
 }
